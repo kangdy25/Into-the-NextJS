@@ -19,30 +19,30 @@ export default async function RootLayout({ children }) {
   let cookie = cookies().get('mode')
   
   return (
-    <html lang="en" className={
+    <html lang="en">
+      <body style={{background: 'white'}} className={
       cookie != undefined && cookie.value == 'dark' 
         ? 'dark-mode'
         : ''}>
-      <body style={{background: 'white'}} >
-      <div className="navbar"> 
-        <Link href="/" className="logo">Appleforum</Link> 
-        <Link href="/list">List</Link> 
-        <Link href="/write">글쓰기</Link> 
-        <Link href="/register">회원가입</Link> 
-        <DarkMode/>
-        {
-          session 
-          ? <div style={{display: 'flex', position: 'absolute' ,right: '20px', top: '20px'}}>
-              <span style={{borderBottom: '2px solid blue', padding: '5px', marginRight: '10px'}}>
-                {session.user.name}
-              </span> 
-              <LogoutBtn/> 
-            </div> 
-          : <div style={{display: 'flex', position: 'absolute' ,right: '20px', top: '20px'}}>
-              <LoginBtn/>
-            </div>
-        }
-      </div>  
+        <div className="navbar"> 
+          <Link href="/" className="logo">Appleforum</Link> 
+          <Link href="/list">List</Link> 
+          <Link href="/write">글쓰기</Link> 
+          <Link href="/register">회원가입</Link> 
+          <DarkMode/>
+          {
+            session 
+            ? <div style={{display: 'flex', position: 'absolute' ,right: '20px', top: '20px'}}>
+                <span style={{borderBottom: '2px solid blue', padding: '5px', marginRight: '10px'}}>
+                  {session.user.name}
+                </span> 
+                <LogoutBtn/> 
+              </div> 
+            : <div style={{display: 'flex', position: 'absolute' ,right: '20px', top: '20px'}}>
+                <LoginBtn/>
+              </div>
+          }
+        </div>  
       <hr/>
         {children}
         </body>

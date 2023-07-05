@@ -73,3 +73,6 @@ h5 {
 .dark-mode .navbar a {
     color: white;
 } 
+.dark-mode .ang{
+    background-color: #222;
+}
