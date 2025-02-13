@@ -1,9 +1,8 @@
-import React from "react";
-import { Button, ButtonProps } from "../ui/button";
+import { Button } from "../ui/button";
 
-const Submit = ({ children, ...others }: ButtonProps) => {
+const Submit = ({ isPending, children, ...others }: any) => {
   return (
-    <Button type="submit" {...others}>
+    <Button type="submit" disabled={isPending} {...others}>
       {children}
     </Button>
   );

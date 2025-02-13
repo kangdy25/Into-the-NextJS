@@ -11,7 +11,7 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
     if (!existingUser) return null;
     return existingUser;
   } catch (error) {
-    console.error("error", error);
+    console.log("error", error);
     throw new Error("문제가 발생했습니다.");
   }
 };
