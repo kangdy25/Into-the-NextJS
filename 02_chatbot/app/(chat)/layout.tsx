@@ -9,7 +9,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         <Sidebar />
       </div>
       {/* 헤더, 채팅 영역 */}
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 h-full overflow-y-auto">
         <Header />
         {children}
       </div>

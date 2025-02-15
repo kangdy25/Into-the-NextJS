@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetTitle,
@@ -7,11 +9,21 @@ import {
 import Sidebar from "./Sidebar";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Menu } from "lucide-react";
+import { useSheetStore } from "@/store/sheet";
 
 const MobileMenu = () => {
+  const { open, setOpen } = useSheetStore((state) => ({
+    open: state.open,
+    setOpen: state.setOpen,
+  }));
   return (
     <div className="md:hidden">
-      <Sheet>
+      <Sheet
+        open={open}
+        onOpenChange={(open) => {
+          setOpen(open);
+        }}
+      >
         <SheetTrigger asChild>
           <Menu />
         </SheetTrigger>
