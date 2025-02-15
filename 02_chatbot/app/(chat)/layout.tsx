@@ -1,3 +1,4 @@
+import Header from "@/components/chat/Header";
 import Sidebar from "@/components/chat/Sidebar";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
@@ -8,7 +9,10 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         <Sidebar />
       </div>
       {/* 헤더, 채팅 영역 */}
-      <div>{children}</div>
+      <div className="flex flex-col flex-1">
+        <Header />
+        {children}
+      </div>
     </div>
   );
 };
