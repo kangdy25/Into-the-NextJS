@@ -1,8 +1,15 @@
 import Chat from "@/components/chat/Chat";
-import React from "react";
+import { getMessageByConversation } from "@/data/conversation";
 
-const ConversationPage = () => {
-  return <Chat />;
+type Props = {
+  params: {
+    conversationId: string;
+  };
 };
+
+async function ConversationPage({ params: { conversationId } }: Props) {
+  const messages = await getMessageByConversation(conversationId);
+  return <Chat initialMessages={messages} />;
+}
 
 export default ConversationPage;

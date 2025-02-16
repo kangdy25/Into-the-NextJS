@@ -11,7 +11,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Menu } from "lucide-react";
 import { useSheetStore } from "@/store/sheet";
 
-const MobileMenu = () => {
+const MobileMenu = ({ children }: { children: React.ReactNode }) => {
   const { open, setOpen } = useSheetStore((state) => ({
     open: state.open,
     setOpen: state.setOpen,
@@ -31,7 +31,7 @@ const MobileMenu = () => {
           <VisuallyHidden>
             <SheetTitle>Menu</SheetTitle>
           </VisuallyHidden>
-          <Sidebar />
+          {children}
         </SheetContent>
       </Sheet>
     </div>

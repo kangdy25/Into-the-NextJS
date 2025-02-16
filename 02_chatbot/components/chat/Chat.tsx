@@ -5,39 +5,40 @@ import Message from "./Message";
 import AutoResizingTextarea from "./AutoResizingTextarea";
 import { Button } from "../ui/button";
 import { ArrowUp } from "lucide-react";
-import { useChat } from "@ai-sdk/react";
-import { DUMMY_LONG_TEXT } from "@/constants/dummy";
+import { useChat, Message as TMessage } from "@ai-sdk/react";
 import { useModelStore } from "@/store/model";
 import { useParams, useRouter } from "next/navigation";
 import { addMessages, createConversation } from "@/actions/conversations";
 import { CHAT_ROUTES } from "@/constants/routes";
 
-const MESSAGE_DUMMY = [
-  { id: "1", content: "더미데이터1", role: "user" },
-  { id: "2", content: "더미데이터2", role: "assistant" },
-  { id: "3", content: "더미데이터3", role: "user" },
-  { id: "4", content: DUMMY_LONG_TEXT, role: "assistant" },
-];
+type Props = {
+  initialMessages?: TMessage[];
+};
 
-const Chat = () => {
+const Chat = ({ initialMessages }: Props) => {
   const router = useRouter();
   const params = useParams<{ conversationId: string }>();
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    onFinish: async (message) => {
-      // param => conversationId가 없으면 새로운 대화 페이지
-      if (!params.conversationId) {
-        const conversation = await createConversation(input);
+  const { messages, setMessages, input, handleInputChange, handleSubmit } =
+    useChat({
+      onFinish: async (message) => {
+        // param => conversationId가 없으면 새로운 대화 페이지
+        if (!params.conversationId) {
+          const conversation = await createConversation(input);
+          await addMessages(conversation.id, input, message.content);
 
-        await addMessages(conversation.id, input, message.content);
-
-        router.push(`${CHAT_ROUTES.CONVERSATIONS}/${conversation.id}`);
-      } else {
-      }
-      // param => conversationId가 있으면 기존 대화 페이지
-    },
-  });
+          router.push(`${CHAT_ROUTES.CONVERSATIONS}/${conversation.id}`);
+        } else {
+        }
+        // param => conversationId가 있으면 기존 대화 페이지
+        await addMessages(params.conversationId, input, message.content);
+      },
+    });
   const model = useModelStore((state) => state.model);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (initialMessages) setMessages(initialMessages);
+  }, [initialMessages, setMessages]);
 
   useEffect(() => {
     if (scrollRef.current) {
