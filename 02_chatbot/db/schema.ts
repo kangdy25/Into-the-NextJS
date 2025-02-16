@@ -41,7 +41,7 @@ export const message = pgTable("message", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
   content: text("content"),
   role: text("role").$type<"user" | "assistant">(),
-  conversationrId: uuid("conversationId")
+  conversationId: uuid("conversationId")
     .references(() => conversation.id, { onDelete: "cascade" })
     .notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -50,7 +50,7 @@ export const message = pgTable("message", {
 
 export const messageRelations = relations(message, ({ one }) => ({
   conversation: one(conversation, {
-    fields: [message.conversationrId],
+    fields: [message.conversationId],
     references: [conversation.id],
   }),
 }));
