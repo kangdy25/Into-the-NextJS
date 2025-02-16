@@ -10,6 +10,7 @@ import { useModelStore } from "@/store/model";
 import { useParams, useRouter } from "next/navigation";
 import { addMessages, createConversation } from "@/actions/conversations";
 import { CHAT_ROUTES } from "@/constants/routes";
+import { useUserStore } from "@/store/user";
 
 type Props = {
   initialMessages?: TMessage[];
@@ -18,6 +19,7 @@ type Props = {
 const Chat = ({ initialMessages }: Props) => {
   const router = useRouter();
   const params = useParams<{ conversationId: string }>();
+  const user = useUserStore((state) => state.user);
   const { messages, setMessages, input, handleInputChange, handleSubmit } =
     useChat({
       onFinish: async (message) => {
@@ -50,14 +52,14 @@ const Chat = ({ initialMessages }: Props) => {
     <div className="flex flex-col w-[80%] h-full mx-auto">
       {/* 채팅 영역 */}
       <div className="flex-1">
-        {messages.length === 0 ? (
+        {!params.conversationId && messages.length === 0 ? (
           <Empty />
         ) : (
           <>
             {messages.map((message) => (
               <Message
                 key={message.id}
-                name={"user"}
+                name={user.name}
                 content={message.content}
                 role={message.role}
               />
