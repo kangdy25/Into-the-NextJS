@@ -3,7 +3,7 @@ import style from "./page.module.css";
 export default async function Page({
   params,
 }: {
-  params: { id: string | string[] };
+  params: Promise<{ id: string | string[] }>;
 }) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${(await params).id}`
@@ -23,7 +23,7 @@ export default async function Page({
         className={style.cover_img_container}
         style={{ backgroundImage: `url('${coverImgUrl}')` }}
       >
-        <img src={coverImgUrl} />
+        <img src={coverImgUrl} alt="" />
       </div>
       <div className={style.title}>{title}</div>
       <div className={style.subTitle}>{subTitle}</div>
