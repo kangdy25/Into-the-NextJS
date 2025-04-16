@@ -3,11 +3,9 @@ import Modal from "@/components/modal";
 
 const Page = (props: any) => {
   return (
-    <div>
-      <Modal>
-        <BookPage {...props} />
-      </Modal>
-    </div>
+    <Modal>
+      <BookPage {...props} />
+    </Modal>
   );
 };
 
