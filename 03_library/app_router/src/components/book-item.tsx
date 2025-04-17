@@ -19,6 +19,7 @@ export default function BookItem({
         width={80}
         height={105}
         alt={`도서 ${title}의 표지 이미지`}
+        priority
       />
       <div>
         <div className={style.title}>{title}</div>
